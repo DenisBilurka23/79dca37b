@@ -54,7 +54,7 @@ const Calls = ({data, setLoading, archivePage, setActivities}) => {
 		<Box>
 			<AnimatePresence mode='wait'>
 				<motion.div layout>
-					{data.map(({id, created_at, from, to}) => {
+					{data.map(({id, created_at, from, to, is_archived}) => {
 						const {day} = getFormattedTime(created_at)
 						const isNewDay = day !== previousDay
 						previousDay = day
@@ -69,7 +69,13 @@ const Calls = ({data, setLoading, archivePage, setActivities}) => {
 								transition={{duration: 0.3}}
 							>
 								{isNewDay && <Day variant="h6">{day}</Day>}
-								<Call id={id} created_at={created_at} from={from} to={to} onDelete={deleteHandler}/>
+								<Call
+									id={id}
+									created_at={created_at}
+									from={from} to={to}
+									onDelete={deleteHandler}
+									is_archived={is_archived}
+								/>
 							</motion.div>
 						)
 					})}

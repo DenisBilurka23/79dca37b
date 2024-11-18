@@ -53,7 +53,7 @@ const DayNight = styled(Box)`
   color: var(--text-light);
 `
 
-const DeleteButton = styled(Button)`
+const DeleteButton = styled(Button, {shouldForwardProp: (prop) => prop !== 'isArchived'})`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -61,14 +61,14 @@ const DeleteButton = styled(Button)`
   left: 50%;
   display: flex;
   justify-content: flex-end;
-  background: var(--red);
+  background: ${props => props.isArchived ? 'var(--green)' : 'var(--red)'};
   color: white;
   font-weight: bold;
   z-index: 5;
   border-radius: 1rem;
 `
 
-const Call = ({id, created_at, from, to, onDelete}) => {
+const Call = ({id, created_at, from, to, onDelete, is_archived}) => {
 	const {ampm, time} = getFormattedTime(created_at)
 	const [dragging, setDragging] = useState(false)
 	const navigate = useNavigate()
@@ -90,7 +90,9 @@ const Call = ({id, created_at, from, to, onDelete}) => {
 
 	return (
 		<Wrapper>
-			<DeleteButton onClick={onDelete}>Delete</DeleteButton>
+			<DeleteButton onClick={onDelete} isArchived={is_archived}>
+				{is_archived ? 'Unarchive' : 'Archive'}
+			</DeleteButton>
 			<Activity
 				onMouseUp={handleActivity}
 				drag="x"
