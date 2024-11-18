@@ -37,6 +37,7 @@ const Content = styled(Box)`
   right: 0;
   z-index: 100;
   background: #fff;
+  border-top: 1px solid var(--border);
 `
 
 const IconWrapper = styled(IconButton, {shouldForwardProp: (prop) => prop !== 'active' && prop !== 'central'})(({
